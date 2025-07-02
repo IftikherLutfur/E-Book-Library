@@ -25,7 +25,7 @@ export default function Footer () {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12 22C6.47715 22 2 17.5228 ... Z" />
+              
             </svg>
           </a>
 
@@ -41,7 +41,7 @@ export default function Footer () {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M2.00195 12.002C2.00312 ... Z" />
+             
             </svg>
           </a>
 
@@ -57,7 +57,7 @@ export default function Footer () {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M12.026 2C7.13295 1.99937 ... Z" />
+              
             </svg>
           </a>
         </div>
