@@ -1,11 +1,26 @@
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValue, type SubmitHandler } from "react-hook-form";
+import { useCreateBookMutation } from "../../redux/api/baseApi";
 
 export default function AddBooks() {
   const { register, handleSubmit, reset } = useForm();
-  const onSubmit = (data) => {
+  
+  const [createBook, {data, isLoading, isError} ] = useCreateBookMutation();
+  console.log({data, isLoading, isError})
+
+  const onSubmit:SubmitHandler<FieldValue> = async (data) => {
+    const bookData = {
+      ...data
+    }
+
+    const res = await createBook(bookData).unwrap();
+    console.log("Post data", res);
+    
+
     console.log(data);
      reset();
   };
+
+
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
@@ -34,7 +49,7 @@ export default function AddBooks() {
           <input
             type="text"
             placeholder="Add the author name"
-            {...register("title")}
+            {...register("author")}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
@@ -48,9 +63,12 @@ export default function AddBooks() {
             {...register("genre")}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="fiction">Fiction</option>
-            <option value="history">History</option>
-            <option value="romantic">Romantic</option>
+            <option value="FICTION">Fiction</option>
+            <option value="HISTORY">History</option>
+            <option value="SCIENCE">Science</option>
+            <option value="NON_FICTION">Non Fiction</option>
+            <option value="BIOGRAPHY">Biography</option>
+            <option value="FANTASY">Fantasy</option>
           </select>
         </div>
 
@@ -108,8 +126,8 @@ export default function AddBooks() {
             {...register("available")}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="fiction">true</option>
-            <option value="romantic">false</option>
+            <option value="true">true</option>
+            <option value="false">false</option>
           </select>
         </div>
 

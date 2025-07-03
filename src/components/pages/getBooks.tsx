@@ -16,9 +16,7 @@ export default function Books() {
     <div className="pt-20">
       <div className="mt-10">
         <BookTable books={data?.data || []} 
-          onEdit={(book) => console.log("Edit", book)}
-          onDelete={(book) => console.log("Delete", book)}
-          onBorrow={(book) => console.log("Borrow", book)}
+          
         />
       </div>
     </div>

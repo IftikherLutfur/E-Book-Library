@@ -1,16 +1,46 @@
 // BookTable.tsx
-
+import toast from "react-hot-toast";
+import { useDeleteTaskMutation } from "../../redux/api/baseApi";
 import type IBook from "../../types";
+import Swal from "sweetalert2";
 
 
 interface BookTableProps {
   books: IBook[];
-  onEdit: (book: IBook) => void;
-  onDelete: (book: IBook) => void;
-  onBorrow: (book: IBook) => void;
 }
 
-export default function BookTable({ books, onEdit, onDelete, onBorrow }: BookTableProps) {
+
+export default function BookTable({ books }: BookTableProps) {
+
+  const [deleteBook] = useDeleteTaskMutation();
+
+  const handleForDelete = (id: string) => {
+    console.log(id);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to undo this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBook(id).unwrap()
+          .then(() => {
+            console.log("Book deleted successfully")
+            toast.success("Successfully Deleted")
+          })
+          .catch((error) => {
+            console.log("Failed to deletebook", error)
+          })
+
+        toast.success("Your book has been deleted");
+      }
+    });
+
+
+  }
+
   return (
     <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-800 dark:bg-gray-50">
       <h2 className="mb-3 text-2xl font-semibold leading-tight">Books</h2>
@@ -47,23 +77,22 @@ export default function BookTable({ books, onEdit, onDelete, onBorrow }: BookTab
                 </td>
                 <td className="px-3 py-2 space-x-2">
                   <button
-                    onClick={() => onEdit(book)}
+                    // onClick={() }
                     className="px-2 py-1 text-white bg-blue-600 rounded hover:bg-blue-700"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => onDelete(book)}
+                    onClick={() => handleForDelete(book._id)}
                     className="px-2 py-1 text-white bg-red-600 rounded hover:bg-red-700"
                   >
                     Delete
                   </button>
                   <button
-                    onClick={() => onBorrow(book)}
+                    // onClick={() => onBorrow(book)}
                     disabled={!book.available}
-                    className={`px-2 py-1 text-white rounded ${
-                      book.available ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
-                    }`}
+                    className={`px-2 py-1 text-white rounded ${book.available ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
+                      }`}
                   >
                     Borrow
                   </button>
@@ -72,7 +101,9 @@ export default function BookTable({ books, onEdit, onDelete, onBorrow }: BookTab
             ))}
           </tbody>
         </table>
+
       </div>
+
     </div>
   );
 }

@@ -9,16 +9,30 @@ export const bookApi = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/books",
+      providesTags: ["books"]
     }),
+    getBorrow: builder.query({
+      query: () => "/borrow"
+    }),
+    createBook: builder.mutation({
+      query: (bookData) => ({
+        url: "/books",
+        method: "POST",
+        body: bookData
+      }),
+      invalidatesTags: ["books"]
+    }),
+    deleteTask: builder.mutation({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: "DELETE"
 
-    
-
-    // deleteTask:
-
+      }),
+    }),
   }),
 });
 
 
 
 // Hook auto-named based on your endpoint: getBooks
-export const { useGetBooksQuery } = bookApi;
+export const { useGetBooksQuery, useCreateBookMutation, useDeleteTaskMutation, useGetBorrowQuery } = bookApi;
