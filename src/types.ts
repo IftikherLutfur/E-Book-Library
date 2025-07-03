@@ -10,3 +10,4 @@ export default interface IBook {
     updatedAt: Date
     _id: string
 }
+

@@ -30,9 +30,11 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
+            <Link to={"/addBooks"}>
             <button className="shadow-2xl bg-[#6366F1] p-2 border-1 border-amber-100 rounded-xl">
               Add Books
             </button>
+            </Link>
           </li>
           <li>
             <button className="shadow-2xl bg-[#6366F1] p-2 border-1 border-amber-100 rounded-xl">

@@ -10,8 +10,15 @@ export const bookApi = createApi({
     getBooks: builder.query({
       query: () => "/books",
     }),
+
+    
+
+    // deleteTask:
+
   }),
 });
+
+
 
 // Hook auto-named based on your endpoint: getBooks
 export const { useGetBooksQuery } = bookApi;
