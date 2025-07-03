@@ -1,47 +1,61 @@
 export default function HomePage() {
   return (
-    <div>
-        <div
-      className="relative min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{
-        backgroundImage:
-          "url('https://i.pinimg.com/736x/b9/ac/16/b9ac160cccaf2b74e93046cd8bc0adeb.jpg')",
-      }}
-    >
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-[#00000099] to-black opacity-70 z-0"></div>
-
-      {/* Text Content */}
-      <div className="relative z-10 p-8 rounded-xl max-w-3xl text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-white leading-snug drop-shadow-lg">
-          40 BOOKS
-          EVERY MAN 
-          MUST READ
-        </h1>
-      </div>
-    </div>
-
-{/* Filter by genre */}
-  <div className="max-w-screen-xl p-5 mx-auto dark:bg-gray-100 dark:text-gray-800">
-	<div className="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
+    <div className=" text-gray-800">
+      
+      {/* Banner */}
+      <section className="max-w-screen-xl my-5 mx-auto px-4 py-12 grid lg:grid-cols-2 gap-10 items-center">
         
-		<div className="relative flex items-end justify-start w-full text-left dark:bg-gray-500 bg-center bg-cover h-96">
-			<div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b dark:via- dark:from-gray-50 dark:to-gray-50"></div>
-			<div className="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
-				<a rel="noopener noreferrer" href="#" className="px-3 py-2 text-xs font-semibold tracking-wider uppercase dark:text-gray-800 dark:bg-violet-600">Politics</a>
-				<div className="flex flex-col justify-start text-center dark:text-gray-800">
-					<span className="text-3xl font-semibold leading-none tracking-wide">04</span>
-					<span className="leading-none uppercase">Aug</span>
-				</div>
-			</div>
-			<h2 className="z-10 p-5">
-				<a rel="noopener noreferrer" href="#" className="font-medium text-md hover:underline dark:text-gray-800"> Autem sunt tempora mollitia magnam non voluptates</a>
-			</h2>
-		</div>
-		
-	</div>
-</div>
+        {/* Left - Image */}
+        <div className="w-full">
+          <img 
+            src="http://i.ibb.co/3mWPb9f8/Background-2025-07-04-T040441-845.png" 
+            alt="Books Banner" 
+            className="rounded-2xl w-full"
+          />
+        </div>
 
+        {/* Right - Text */}
+        <div className="text-center lg:text-left space-y-6">
+          <h3 className="text-xl text-sky-800 font-medium">Every man must read 40 books</h3>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            MEET YOUR NEXT <br className="hidden md:block" /> FAVOURITE BOOK
+          </h1>
+          <button className="bg-sky-800 hover:bg-sky-700 transition-colors text-white text-lg font-semibold py-3 px-6 rounded-md w-full lg:w-auto">
+            Explore
+          </button>
+          <p className="text-lg font-semibold text-gray-600 dark:text-gray-700">
+            “One child, one teacher, one book, one pen can change the world.”
+          </p>
+        </div>
+      </section>
+
+      {/* Filter by Genre */}
+    <section className=" py-10 bg-white">
+        <h2 className="text-2xl font-bold mb-6 text-center">Browse by Genre</h2>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          {/* Example Genre Card */}
+          <div className="relative h-96 bg-center bg-cover rounded-xl overflow-hidden shadow-md" style={{ backgroundImage: "url('https://source.unsplash.com/600x800/?books')" }}>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 to-white"></div>
+            
+            <div className="absolute top-4 left-4 flex items-center justify-between w-full pr-4">
+              <span className="bg-violet-600 text-white text-xs font-semibold px-3 py-1 rounded">Politics</span>
+              <div className="text-center">
+                <p className="text-xl font-bold text-gray-800">04</p>
+                <p className="uppercase text-xs text-gray-600">Aug</p>
+              </div>
+            </div>
+
+            <div className="absolute bottom-4 left-4 right-4">
+              <h3 className="text-md font-medium text-gray-800 hover:underline">
+                Autem sunt tempora mollitia magnam non voluptates
+              </h3>
+            </div>
+          </div>
+
+        </div>
+      </section>
     </div>
   );
 }
