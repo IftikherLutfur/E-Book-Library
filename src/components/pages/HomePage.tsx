@@ -101,7 +101,7 @@ export default function HomePage() {
     {Fiction?.length === 0 ? (
       <p className="col-span-full text-center text-gray-500 font-medium">No Data Added</p>
     ) : (
-      Fiction.map((book: IBook) => (
+      Fiction?.map((book: IBook) => (
         <div
           key={book._id}
           className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5"
@@ -128,7 +128,7 @@ export default function HomePage() {
     {Science?.length === 0 ? (
       <p className="col-span-full text-center text-gray-500 font-medium">No Data Added</p>
     ) : (
-      Science.map((book: IBook) => (
+      Science?.map((book: IBook) => (
         <div
           key={book._id}
           className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5"
@@ -155,7 +155,7 @@ export default function HomePage() {
     {Biography?.length === 0 ? (
       <p className="col-span-full text-center text-gray-500 font-medium">No Data Added</p>
     ) : (
-      Biography.map((book: IBook) => (
+      Biography?.map((book: IBook) => (
         <div
           key={book._id}
           className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5"
@@ -182,7 +182,7 @@ export default function HomePage() {
     {nonFinction?.length === 0 ? (
       <p className="col-span-full text-center text-gray-500 font-medium">No Data Added</p>
     ) : (
-      nonFinction.map((book: IBook) => (
+      nonFinction?.map((book: IBook) => (
         <div
           key={book._id}
           className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5"
@@ -209,7 +209,7 @@ export default function HomePage() {
     {Fantasy?.length === 0 ? (
       <p className="col-span-full text-center text-gray-500 font-medium">No Data Added</p>
     ) : (
-      Fantasy.map((book: IBook) => (
+      Fantasy?.map((book: IBook) => (
         <div
           key={book._id}
           className="bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-5"

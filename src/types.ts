@@ -11,3 +11,9 @@ export default interface IBook {
     _id: string
 }
 
+export interface IBorrow {
+    book: string
+    dueDate: number,
+    totalQuantity: number
+}
+

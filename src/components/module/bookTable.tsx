@@ -1,22 +1,61 @@
-// BookTable.tsx
-import toast from "react-hot-toast";
-import { useDeleteTaskMutation } from "../../redux/api/baseApi";
-import type IBook from "../../types";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
-
+import { useForm } from "react-hook-form";
+import {
+  useCreateBorrowMutation, // ✅ make sure this matches your baseApi name
+  useDeleteTaskMutation,
+} from "../../redux/api/baseApi";
+import type IBook from "../../types";
+import type { IBorrow } from "../../types";
 
 interface BookTableProps {
   books: IBook[];
 }
 
-
 export default function BookTable({ books }: BookTableProps) {
-
+  const [createBorrow, { isLoading }] = useCreateBorrowMutation();
   const [deleteBook] = useDeleteTaskMutation();
 
-  const handleForDelete = (id: string) => {
-    console.log(id);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState<IBook | null>(null);
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IBorrow>();
+
+  // Borrow submission handler
+  const handleForAddBorrow = (data: IBorrow) => {
+    if (!selectedBook) return;
+
+    const borrowPayload = {
+      book: selectedBook._id,
+      quantity: data.totalQuantity,
+      dueDate: data.dueDate,
+    };
+
+    createBorrow(borrowPayload)
+      .unwrap()
+      .then(() => {
+        reset();
+        setIsOpen(false);
+        toast.success("Borrowed Successfully!");
+      })
+      .catch((error) => {
+        toast.error("Failed to borrow");
+        console.error("Borrow error:", error);
+      });
+  };
+
+  const openBorrowModal = (book: IBook) => {
+    setSelectedBook(book);
+    setIsOpen(true);
+  };
+
+  const handleForDelete = (id: string) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to undo this!",
@@ -25,25 +64,22 @@ export default function BookTable({ books }: BookTableProps) {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteBook(id).unwrap()
+        deleteBook(id)
+          .unwrap()
           .then(() => {
-            console.log("Book deleted successfully")
-            toast.success("Successfully Deleted")
+            toast.success("Successfully Deleted");
           })
           .catch((error) => {
-            console.log("Failed to deletebook", error)
-          })
-
-        toast.success("Your book has been deleted");
+            console.log("Failed to delete book", error);
+          });
       }
     });
-
-
-  }
+  };
 
   return (
     <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-800 dark:bg-gray-50">
       <h2 className="mb-3 text-2xl font-semibold leading-tight">Books</h2>
+
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm">
           <thead className="rounded-t-lg dark:bg-gray-300">
@@ -76,10 +112,7 @@ export default function BookTable({ books }: BookTableProps) {
                   )}
                 </td>
                 <td className="px-3 py-2 space-x-2">
-                  <button
-                    // onClick={() }
-                    className="px-2 py-1 text-white bg-blue-600 rounded hover:bg-blue-700"
-                  >
+                  <button className="px-2 py-1 text-white bg-blue-600 rounded hover:bg-blue-700">
                     Edit
                   </button>
                   <button
@@ -89,9 +122,11 @@ export default function BookTable({ books }: BookTableProps) {
                     Delete
                   </button>
                   <button
-                    // onClick={() => onBorrow(book)}
+                    onClick={() => openBorrowModal(book)}
                     disabled={!book.available}
-                    className={`px-2 py-1 text-white rounded ${book.available ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
+                    className={`px-2 py-1 text-white rounded ${book.available
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-gray-400 cursor-not-allowed"
                       }`}
                   >
                     Borrow
@@ -101,9 +136,61 @@ export default function BookTable({ books }: BookTableProps) {
             ))}
           </tbody>
         </table>
-
       </div>
 
+      {/* Borrow Modal */}
+      {isOpen && selectedBook && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md relative">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                reset();
+              }}
+              className="absolute top-2 right-3 text-gray-500 text-2xl font-bold"
+            >
+              &times;
+            </button>
+            <h2 className="text-xl font-bold mb-4">Borrow: {selectedBook.title}</h2>
+
+            <form onSubmit={handleSubmit(handleForAddBorrow)} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium">Due Date</label>
+                <input
+                  type="date"
+                  {...register("dueDate", { required: "Date is required" })}
+                  className="w-full border px-3 py-2 rounded"
+                />
+                {errors.dueDate && (
+                  <p className="text-red-500 text-sm">{errors.dueDate.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium">Quantity</label>
+                <input
+                  type="number"
+                  {...register("totalQuantity", {
+                    required: "Quantity is required",
+                    valueAsNumber: true,
+                    min: { value: 1, message: "Minimum 1 book required" },
+                  })}
+                  className="w-full border px-3 py-2 rounded"
+                />
+                
+              </div>
+
+              <button
+                type="submit"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+              >
+                {isLoading ? "Borrowing..." : "Confirm Borrow"}
+              </button>
+              <Toaster/>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

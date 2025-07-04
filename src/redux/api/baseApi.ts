@@ -22,10 +22,18 @@ export const bookApi = createApi({
       }),
       invalidatesTags: ["books"]
     }),
+    createBorrow: builder.mutation({
+  query: (borrowData) => ({
+    url: "borrow",
+    method: "POST",
+    body: borrowData,
+  }),
+}),
     deleteTask: builder.mutation({
       query: (id) => ({
         url: `/books/${id}`,
         method: "DELETE"
+
 
       }),
     }),
@@ -35,4 +43,4 @@ export const bookApi = createApi({
 
 
 // Hook auto-named based on your endpoint: getBooks
-export const { useGetBooksQuery, useCreateBookMutation, useDeleteTaskMutation, useGetBorrowQuery } = bookApi;
+export const { useGetBooksQuery, useCreateBookMutation, useDeleteTaskMutation, useGetBorrowQuery, useCreateBorrowMutation } = bookApi;
