@@ -12,8 +12,8 @@ export default function GetBorrow() {
 //   }
 
   return (
-    <div className="pt-20">
-      <div className="mt-10">
+    <div>
+      <div className="my-5">
         {/* <BookTable books={data?.data || []}  */}
           
          <div className="container p-2 mx-auto rounded-md sm:p-4 dark:text-gray-800 dark:bg-gray-50">

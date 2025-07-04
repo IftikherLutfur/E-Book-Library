@@ -13,8 +13,8 @@ export default function Books() {
   }
 
   return (
-    <div className="pt-20">
-      <div className="mt-10">
+    <div className="">
+      <div className="my-5">
         <BookTable books={data?.data || []} 
           
         />
