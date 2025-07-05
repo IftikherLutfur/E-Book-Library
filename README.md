@@ -1,4 +1,4 @@
-# 📚 E-Book Management Frontend
+# 📚 E-Book Management
 
 A frontend application for managing books and borrow operations. Built with React, this project allows users to view, add, edit, delete, and borrow books without requiring authentication.
 
