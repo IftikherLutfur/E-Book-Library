@@ -1,5 +1,6 @@
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { useCreateBookMutation } from "../../redux/api/baseApi";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddBooks() {
   const { register, handleSubmit, reset } = useForm();
@@ -14,10 +15,9 @@ export default function AddBooks() {
 
     const res = await createBook(bookData).unwrap();
     console.log("Post data", res);
-    
-
     console.log(data);
      reset();
+     toast.success("Book added successfully")
   };
 
 
@@ -139,6 +139,7 @@ export default function AddBooks() {
           >
             Add Book
           </button>
+          <Toaster/>
         </div>
       </form>
     </div>

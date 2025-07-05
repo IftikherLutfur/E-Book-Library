@@ -10,18 +10,19 @@ export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
     baseUrl:`${import.meta.env.VITE_API_URL}/api`,
-    // baseUrl:"http://localhost:5000/api"
+  
   }),
-  tagTypes: ["books"],
+  tagTypes: ["Books", "Borrow"],
   endpoints: (builder) => ({
 
     getBooks: builder.query<BookApiResponse, void>({
       query: () => "/books",
-      providesTags: ["books"]
+      providesTags: ["Books"]
     }),
 
     getBorrow: builder.query({
-      query: () => "/borrow"
+      query: () => "/borrow",
+      providesTags: ["Borrow"]
     }),
 
     createBook: builder.mutation({
@@ -30,14 +31,16 @@ export const bookApi = createApi({
         method: "POST",
         body: bookData
       }),
-      invalidatesTags: ["books"]
+      invalidatesTags: ["Books"]
     }),
+
     createBorrow: builder.mutation({
   query: (borrowData) => ({
     url: "borrow",
     method: "POST",
     body: borrowData,
   }),
+  invalidatesTags: ["Borrow"],
 }),
 
 updateBook: builder.mutation({
@@ -46,7 +49,7 @@ updateBook: builder.mutation({
    method: "PATCH",
    body: updateData
    }),
-   invalidatesTags: ["books"]
+   invalidatesTags: ["Books"]
 }),
     deleteTask: builder.mutation({
       query: (id) => ({

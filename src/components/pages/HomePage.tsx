@@ -61,12 +61,12 @@ console.log(History);
 
       {/* Filter by Genre */}
 
-      <section className=" py-10 bg-white">
-        <h2 className="text-2xl font-bold mb-6 text-center">Browse by Genre</h2>
+      <section className=" pb-16 pt-10 bg-white">
+        <h2 className="text-2xl font-bold mb-6 text-center">Filtered by Genre</h2>
 
         
         <Tabs>
-    <TabList className={"flex gap-3"}>
+    <TabList className={"flex gap-3 justify-center"}>
       <Tab><button className="bg-sky-800 hover:bg-sky-700 transition-colors text-white text-lg font-semibold py-2 px-3 rounded-md w-full lg:w-auto">History</button></Tab>
       <Tab><button className="bg-sky-800 hover:bg-sky-700 transition-colors text-white text-lg font-semibold py-2 px-3 rounded-md w-full lg:w-auto">Fiction</button></Tab>
       <Tab><button className="bg-sky-800 hover:bg-sky-700 transition-colors text-white text-lg font-semibold py-2 px-3 rounded-md w-full lg:w-auto">Science</button></Tab>
@@ -239,6 +239,52 @@ console.log(History);
 
 
       </section>
+
+ {/* About section */}
+
+    <div className=" py-8 px-6 lg:px-20 mt-10">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">About Our E-Book Platform</h2>
+        <p className="text-gray-600 text-lg leading-relaxed">
+          Welcome to <span className="text-blue-600 font-semibold">E Book</span>, your go-to digital destination for reading and discovering e-books across all genres. 
+          We aim to provide an accessible, flexible, and immersive reading experience for every kind of reader.
+        </p>
+        <p className="text-gray-600 text-lg mt-4">
+          Browse thousands of e-books, filter by your favorite genres, and start reading instantly—anytime, anywhere. 
+          Whether you're into fiction, science, biography, or fantasy, we've got something for everyone. Start your digital reading journey today!
+        </p>
+      </div>
+    </div>
+    
+
+{/* Newsletter */}
+       <div className=" flex items-center justify-between -12 px-6 py-10 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl mx-auto text-center">
+      <div>
+        <h2 className="text-3xl font-bold mb-4 text-gray-800">Subscribe to our Newsletter</h2>
+      <p className="text-gray-600 mb-6">
+        Get the latest updates about new books, features, and offers.
+      </p>
+      </div>
+      <div>
+        <form className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <input
+          type="email"
+          placeholder="Enter your email"
+          className="w-full sm:w-auto px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Subscribe
+        </button>
+      </form>
+      </div>
+    </div>
+    {/* Newsletter */}
+
+   
     </div>
   );
 }

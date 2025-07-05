@@ -9,6 +9,7 @@ import {
 } from "../../redux/api/baseApi";
 import type IBook from "../../types";
 import type { IBorrow } from "../../types";
+import { useNavigate } from "react-router";
 
 interface BookTableProps {
   books: IBook[];
@@ -22,6 +23,7 @@ export default function BookTable({ books }: BookTableProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<IBook | null>(null);
+  const Navigate = useNavigate();
 
   const {
     register,
@@ -46,11 +48,12 @@ export default function BookTable({ books }: BookTableProps) {
     createBorrow(borrowPayload)
       .unwrap()
       .then(() => {
+        toast.success("Borrowed Successfully!");
         reset();
         setIsOpen(false);
-        toast.success("Borrowed Successfully!");
+        Navigate("/borrow")
       })
-      .catch(() => toast.error("Failed to borrow"));
+      .catch(() => toast.error(`You want ${data.totalQuantity}, but we have (${selectedBook.copies})`));
   };
 
   const handleUpdate = (data: IBook) => {
@@ -129,6 +132,7 @@ export default function BookTable({ books }: BookTableProps) {
                 <td className="px-3 py-2 space-x-2">
                   <button onClick={() => openBookModel(book)} className="px-2 py-1 text-white bg-blue-600 rounded hover:bg-blue-700">Edit</button>
                   <button onClick={() => handleForDelete(book._id)} className="px-2 py-1 text-white bg-red-600 rounded hover:bg-red-700">Delete</button>
+                  <Toaster/>
                   <button onClick={() => openBorrowModal(book)} disabled={!book.available} className={`px-2 py-1 text-white rounded ${book.available ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"}`}>Borrow</button>
                 </td>
               </tr>
