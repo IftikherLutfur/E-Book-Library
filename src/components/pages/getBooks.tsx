@@ -3,6 +3,7 @@ import BookTable from "../module/bookTable"
 
 export default function Books() {
   const { data, isLoading, isError } = useGetBooksQuery(undefined)
+  console.log({data})
 
   if (isLoading) {
     return <h1>Loading......</h1>
