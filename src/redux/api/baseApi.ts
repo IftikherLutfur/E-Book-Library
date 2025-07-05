@@ -4,7 +4,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/",
+    baseUrl: "https://library-management-system-seven-flax.vercel.app/api/",
   }),
   endpoints: (builder) => ({
     getBooks: builder.query({
