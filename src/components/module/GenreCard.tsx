@@ -1,6 +1,12 @@
 // src/components/GenreCards.jsx
 
-export default function GenreCards({ books }) {
+import type IBook from "../../types";
+
+interface GenreCardsProps {
+  books: IBook[];
+}
+
+export default function GenreCards({ books }: GenreCardsProps) {
   if (!books?.length) {
     return <p>No books available in this genre.</p>;
   }

@@ -9,8 +9,8 @@ interface BookApiResponse {
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://library-management-system-seven-flax.vercel.app/api",
-    // baseUrl:"http://localhost:5000/api"
+    // baseUrl: "https://library-management-system-seven-flax.vercel.app/api",
+    baseUrl:"http://localhost:5000/api"
   }),
   tagTypes: ["books"],
   endpoints: (builder) => ({
