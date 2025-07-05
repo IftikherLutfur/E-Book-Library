@@ -6,6 +6,7 @@ export const bookApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://library-management-system-seven-flax.vercel.app/api/",
   }),
+  tagTypes: ["books"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/books",

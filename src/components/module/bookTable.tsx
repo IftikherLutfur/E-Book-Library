@@ -34,7 +34,6 @@ export default function BookTable({ books }: BookTableProps) {
     register: registerEdit,
     handleSubmit: handleEditSubmit,
     reset: resetEdit,
-    formState: { errors: editErrors },
   } = useForm<IBook>();
 
   const handleForAddBorrow = (data: IBorrow) => {
