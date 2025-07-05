@@ -1,4 +1,11 @@
 import { useGetBorrowQuery } from "../../redux/api/baseApi"
+import type IBook from "../../types";
+
+interface IBorrow {
+  _id: string;
+  book: IBook;   // or at least contains title and isbn
+  totalQuantity: number;
+}
 
 export default function GetBorrow() {
   const { data, isLoading, isError } = useGetBorrowQuery(undefined)
@@ -30,7 +37,7 @@ export default function GetBorrow() {
             </tr>
           </thead>
           <tbody>
-            {data?.data?.map((book, index)=> (
+            {data?.data?.map((book: IBorrow, index: number)=> (
               <tr
                 key={book._id}
                 className="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-100"

@@ -1,20 +1,29 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-
+import type IBook from "../../types";
+interface BookApiResponse {
+  success: boolean;
+  message: string;
+  data: IBook[];
+}
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://library-management-system-seven-flax.vercel.app/api/",
+    baseUrl: "https://library-management-system-seven-flax.vercel.app/api",
+    // baseUrl:"http://localhost:5000/api"
   }),
   tagTypes: ["books"],
   endpoints: (builder) => ({
-    getBooks: builder.query({
+
+    getBooks: builder.query<BookApiResponse, void>({
       query: () => "/books",
       providesTags: ["books"]
     }),
+
     getBorrow: builder.query({
       query: () => "/borrow"
     }),
+
     createBook: builder.mutation({
       query: (bookData) => ({
         url: "/books",

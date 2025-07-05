@@ -1,4 +1,4 @@
-import { useForm, type FieldValue, type SubmitHandler } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { useCreateBookMutation } from "../../redux/api/baseApi";
 
 export default function AddBooks() {
@@ -7,7 +7,7 @@ export default function AddBooks() {
   const [createBook, {data, isLoading, isError} ] = useCreateBookMutation();
   console.log({data, isLoading, isError})
 
-  const onSubmit:SubmitHandler<FieldValue> = async (data) => {
+  const onSubmit:SubmitHandler<FieldValues> = async (data) => {
     const bookData = {
       ...data
     }

@@ -2,28 +2,27 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { useGetBooksQuery } from "../../redux/api/baseApi";
 import type IBook from "../../types";
 
-interface  Genre {
-  genre: string
-}
-
 export default function HomePage() {
 
   const { data, isLoading, isError } = useGetBooksQuery();
-  console.log({ data, isLoading, isError })
+  console.log({ data, isLoading, isError });
 
   // FICTION, NON_FICTION, SCIENCE, HISTORY, BIOGRAPHY, FANTASY
+// const books = data?.data || [];
 
-  const History = data?.data?.filter((category: Genre) => category.genre === "HISTORY")
-  console.log(History)
-  const Fiction = data?.data?.filter((category: Genre)  => category.genre === "FICTION")
+const books: IBook[] = data?.data || [];
+const History = books.filter((book: IBook) => book.genre === "HISTORY");
+console.log(History);
+
+  const Fiction =  books.filter((book: IBook)=> book.genre === "FICTION")
   console.log(Fiction)
-  const Science = data?.data?.filter((category: Genre)  => category.genre === "SCIENCE")
+  const Science =  books.filter((book: IBook)=> book.genre === "SCIENCE")
   console.log(Science)
-  const Biography = data?.data?.filter((category: Genre)  => category.genre === "BIOGRAPHY")
+  const Biography =  books.filter((book: IBook)=> book.genre === "BIOGRAPHY")
   console.log(Biography)
-  const nonFinction = data?.data?.filter((category: Genre)  => category.genre === "NON_FICTION")
+  const nonFinction =  books.filter((book: IBook)=> book.genre === "NON_FICTION")
   console.log(nonFinction)
-  const Fantasy = data?.data?.filter((category: Genre)  => category.genre === "FANTASY")
+  const Fantasy =  books.filter((book: IBook)=> book.genre === "FANTASY")
   console.log(Fantasy)
 
   if (isLoading) {
