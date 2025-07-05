@@ -1,69 +1,85 @@
-# React + TypeScript + Vite
+# 📚 E-Book Management Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend application for managing books and borrow operations. Built with React, this project allows users to view, add, edit, delete, and borrow books without requiring authentication.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### 1. 🌐 Public Routes
+- All pages are publicly accessible — no login/authentication required.
+- Focused on essential book and borrow operations.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. 🛠️ Book Management
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+#### 📋 Book List Table
+- Displays all books in a responsive table layout.
+- **Columns:** Title, Author, Genre, ISBN, Copies, Availability, Actions
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### 🧩 Actions:
+- **✏️ Edit Book**  
+  - Opens a modal pre-filled with current data  
+  - Updates book info via API  
+  - If copies are `0`, availability is auto-set to "Unavailable"
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **🗑️ Delete Book**  
+  - Confirmation popup before deletion  
+  - Book is removed via API and UI updates instantly
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **📥 Borrow Book**  
+  - Opens a form to borrow the book  
+  - Form includes quantity and due date  
+  - Quantity can't exceed available copies  
+  - If copies become `0`, book is marked unavailable
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### ➕ Add New Book
+- Opens a modal form to create a new book
+- Fields: Title, Author, Genre, ISBN, Description, Copies  
+- "Available" is optional and defaults to `true`
+- After submission:
+  - Redirects to book list
+  - UI updates instantly with the new entry
+
+---
+
+### 3. 🔁 Borrow Book Flow
+- Launched via **"Borrow"** button from the book table
+- Fields:
+  - **Quantity**: Must be ≤ available copies  
+  - **Due Date**: Required date input
+
+- After successful submission:
+  - API creates a borrow entry
+  - Redirects to **Borrow Summary** page
+
+---
+
+### 4. 📊 Borrow Summary Page
+- Displays all borrowed books
+- **Fetched from an aggregation API**
+- **Columns:** Book Title, ISBN, Total Quantity Borrowed
+
+---
+
+## 🛠️ Tech Stack
+
+- **React.js**
+- **TypeScript**
+- **Tailwind CSS**
+- **Redux Toolkit + RTK Query** – for API integration
+- **React Hook Form**
+- **SweetAlert2** – for modals
+- **React Hot Toast** – for notifications
+
+---
+
+## 🧪 How to Run
+
+```bash
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
