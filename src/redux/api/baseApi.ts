@@ -9,7 +9,7 @@ interface BookApiResponse {
 export const bookApi = createApi({
   reducerPath: "bookApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://library-management-system-seven-flax.vercel.app/api",
+    baseUrl:`${import.meta.env.VITE_API_URL}/api`,
     // baseUrl:"http://localhost:5000/api"
   }),
   tagTypes: ["books"],
