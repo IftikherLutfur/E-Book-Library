@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { useGetBooksQuery } from "../../redux/api/baseApi"
 import BookTable from "../module/bookTable"
 
 export default function Books() {
-  const { data, isLoading, isError } = useGetBooksQuery(undefined)
-  console.log({data})
+
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  
+
+  const { data, isLoading, isError, refetch } = useGetBooksQuery({ page, limit })
+  console.log({ data })
 
   if (isLoading) {
     return <h1>Loading......</h1>
@@ -13,11 +19,19 @@ export default function Books() {
     return <h1>Something went wrong!</h1>
   }
 
+  
+  // refetch();
+   const totalPages = data?.meta?.totalPages || 1;
+
   return (
     <div className="">
       <div className="my-5">
-        <BookTable books={data?.data || []} 
-          
+        <BookTable
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+          refetch={refetch} books={data?.data || []}
+
         />
       </div>
     </div>

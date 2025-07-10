@@ -5,6 +5,11 @@ interface BookApiResponse {
   success: boolean;
   message: string;
   data: IBook[];
+  meta: {
+    totalPages: number;
+    currentPage: number;
+    totalItems: number;
+  };
 }
 export const bookApi = createApi({
   reducerPath: "bookApi",
@@ -15,8 +20,8 @@ export const bookApi = createApi({
   tagTypes: ["Books", "Borrow"],
   endpoints: (builder) => ({
 
-    getBooks: builder.query<BookApiResponse, void>({
-      query: () => "/books",
+    getBooks: builder.query<BookApiResponse,{ page?: number; limit?: number }, void>({
+       query: ({ page }) => `/books?page=${page}`,
       providesTags: ["Books"]
     }),
 
@@ -55,9 +60,8 @@ updateBook: builder.mutation({
       query: (id) => ({
         url: `/books/${id}`,
         method: "DELETE"
-
-
       }),
+       invalidatesTags: ["Books"],
     }),
   }),
 });
